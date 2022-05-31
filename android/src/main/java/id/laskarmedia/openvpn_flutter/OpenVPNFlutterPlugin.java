@@ -78,6 +78,7 @@ public class OpenVPNFlutterPlugin implements FlutterPlugin, ActivityAware {
                     result.success(vpnHelper.status.toString());
                     break;
                 case "initialize":
+                    VpnService.prepare(activity);
                     vpnHelper = new VPNHelper(activity);
                     vpnHelper.setOnVPNStatusChangeListener(new OnVPNStatusChangeListener() {
                         @Override
