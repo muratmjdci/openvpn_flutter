@@ -25,6 +25,7 @@ public class SwiftOpenVPNFlutterPlugin: NSObject, FlutterPlugin {
         vpnControlM.setMethodCallHandler({(call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             switch call.method{
             case "status":
+                SwiftOpenVPNFlutterPlugin.utils.getTraffictStats()
                 result(UserDefaults.init(suiteName: SwiftOpenVPNFlutterPlugin.utils.groupIdentifier)?.string(forKey: "connectionUpdate"))
                 break;
             case "stage":
@@ -239,6 +240,8 @@ class VPNUtils {
                 })
             }
         }
+        
+        
     }
     
     func stopVPN() {
@@ -251,5 +254,17 @@ class VPNUtils {
         tunnelProtocol.serverAddress = "";
         self.providerManager.protocolConfiguration = tunnelProtocol;
         self.providerManager.saveToPreferences();
+    }
+    
+    func getTraffictStats(){
+        if let session = self.providerManager?.connection as? NETunnelProviderSession {
+            do {
+                try session.sendProviderMessage("OPENVPN_STATS".data(using: .utf8)!) {(data) in
+                    //Do nothing
+                }
+            } catch {
+            // some error
+            }
+        }
     }
 }
