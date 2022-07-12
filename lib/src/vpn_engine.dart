@@ -200,10 +200,9 @@ class OpenVPN {
   }
 
   ///Request android permission (Return true if already granted)
-  Future<bool> requestPermissionAndroid() async {
-    final res = await _channelControl
-        .invokeMethod("request_permission");
-    return res ?? false;
+  Future<bool> requestPermissionAndroid()  {
+    return _channelControl.invokeMethod("request_permission");
+    /* return res; */
   }
 
   ///Sometimes config script has too many Remotes, it cause ANR in several devices,
