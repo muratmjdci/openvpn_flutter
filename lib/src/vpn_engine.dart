@@ -201,7 +201,7 @@ class OpenVPN {
 
   ///Request android permission (Return true if already granted)
   Future<bool> requestPermissionAndroid() async {
-    return _channelControl
+    return await _channelControl
         .invokeMethod("request_permission")
         .then((value) => value ?? false);
   }
