@@ -200,7 +200,7 @@ class OpenVPN {
   }
 
   ///Request android permission (Return true if already granted)
-  Future<bool> requestPermissionAndroid()  {
+  Future<dynamic> requestPermissionAndroid()  {
     return _channelControl.invokeMethod("request_permission");
     /* return res; */
   }
